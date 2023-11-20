@@ -6,6 +6,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import authRouter from './routes/auth';
 import productRouter from './routes/products';
+import webhookRouter from './routes/webhooks';
 import { DB_URL, PORT } from './utils/constants/global';
 
 const dbUrl = DB_URL;
@@ -26,6 +27,7 @@ mongoose
 
     app.use('/auth', authRouter);
     app.use('/products', productRouter);
+    app.use('/webhooks', webhookRouter);
 
     app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
       if (error) {

@@ -1,5 +1,6 @@
 export const DB_URL = process.env.DB_URL;
 export const PORT = process.env.PORT || 3434;
+export const HOST = process.env.HOST;
 
 export const SHOPIFY_CLIENT_ID = process.env.SHOPIFY_CLIENT_ID;
 export const SHOPIFY_CLIENT_SECRET = process.env.SHOPIFY_CLIENT_SECRET;

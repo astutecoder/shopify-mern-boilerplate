@@ -29,7 +29,7 @@ export const isAuthenticated = async (
       throw new Error('Not authenticated');
     }
 
-    req.user = { token: user.password, shop: user.shop };
+    req.user = { password: user.password, shop: user.shop };
     next();
   } catch (error) {
     console.log('error', error.message);

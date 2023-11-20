@@ -5,3 +5,5 @@ export interface IUser {
   passwordUpdatedAt: Date;
   uninstalledAt: Date;
 }
+
+export type IUserReqBody = Pick<IUser, 'shop' | 'password'>;

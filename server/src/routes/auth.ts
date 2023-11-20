@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import fetch from 'node-fetch';
 import jwt from 'jsonwebtoken';
+import fetch from 'node-fetch';
 import { User } from '../models';
+import { registerWebhook } from '../services/webhooks';
 import {
   JWT_SECRET,
   SHOPIFY_CLIENT_ID,
   SHOPIFY_CLIENT_SECRET,
 } from '../utils/constants/global';
+import { WEBHOOK_APP_UNINSTALLED } from '../utils/constants/webhooks';
 
 const router = Router();
 
@@ -56,6 +58,14 @@ router.post('/retrive-token', async (req, res, next) => {
     }
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET!);
+
+    // register webhook for uninstall event
+    registerWebhook(
+      { shop: user.shop, password: user.password },
+      WEBHOOK_APP_UNINSTALLED.topic,
+      WEBHOOK_APP_UNINSTALLED.endpoint
+    );
+
     return res.json({ token });
   } catch (error) {
     next(error);

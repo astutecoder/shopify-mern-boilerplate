@@ -28,7 +28,9 @@ _Client & Server_
 
 3. Add the App URL, using your client project's link, as the main URL.
 
-4. Set the redirection URL pointing to the `/authenticate` endpoint of your client project.
+4. Set the redirection URLs
+
+   - `{CLIENT_PROJECT_HOST}/authenticate`
 
 5. Install the app in your demo store.
 
