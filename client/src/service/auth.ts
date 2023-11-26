@@ -1,3 +1,4 @@
+import { v4 as uid } from 'uuid';
 import {
   APP_URL,
   NONCE_KEY,
@@ -20,23 +21,28 @@ export const getIsAuthenticated = async (shop: string) => {
 
 export const getAuthorized = async (shop: string) => {
   const redirect_uri = `${APP_URL}/authenticate`;
-  const nonce = Math.random() * Date.now();
+  const nonce = uid();
   const url = `https://${shop}/admin/oauth/authorize?client_id=${SHOPIFY_CLIENT_ID}&scope=${SHOPIFY_SCOPES}&redirect_uri=${redirect_uri}&state=${nonce}`;
 
-  localStorage.setItem(NONCE_KEY, String(nonce));
+  localStorage.setItem(NONCE_KEY, nonce);
   window.location.replace(url);
+  return null;
 };
 
 export const getAuthToken = async (shop: string, code: string) => {
   const tokenUrl = `${SERVER_URL}/auth/retrive-token`;
 
-  const data = await fetch(tokenUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ shop, code }),
-  });
+  try {
+    const data = await fetch(tokenUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ shop, code }),
+    });
 
-  return await data.json();
+    return await data.json();
+  } catch (error) {
+    //
+  }
 };

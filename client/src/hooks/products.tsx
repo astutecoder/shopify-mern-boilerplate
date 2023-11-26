@@ -4,6 +4,7 @@ import { getProducts } from '../service/products';
 export const useListProducts = () => {
   const [products, setProducts] = useState([]);
   const [errors, setErrors] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -16,11 +17,12 @@ export const useListProducts = () => {
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        console.log('error', error);
         setErrors(error?.error);
+      } finally {
+        setLoading(false);
       }
     })();
   }, []);
 
-  return { products, errors };
+  return { products, errors, loading };
 };

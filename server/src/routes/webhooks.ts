@@ -10,10 +10,7 @@ router.post(WEBHOOK_APP_UNINSTALLED.endpoint, async (req, res) => {
 
   try {
     const now = Date.now();
-    await User.findOneAndUpdate(
-      { shop: myshopify_domain },
-      { password: '', passwordUpdatedAt: now, uninstalledAt: now }
-    );
+    await User.findOneAndDelete({ shop: myshopify_domain });
   } catch (error) {
     // log failed webhook
   }
