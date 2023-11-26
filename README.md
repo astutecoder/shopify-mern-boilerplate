@@ -15,6 +15,7 @@ _Client & Server_
 
 1. Clone this repository to your local machine.
 2. Create a `.env` file and populate it with keys from the `.env.sample` file.
+3. Set your backend server's domain as server env `HOST` value
 
 ### Getting Started
 
@@ -34,4 +35,7 @@ _Client & Server_
 
 5. Install the app in your demo store.
 
-For any issues or queries, feel free to contact our support team.
+### Note:
+
+- Kindly remove shop records after uninstalling the app because it is possible that your webhooks are not working when developing in local environment.
+- Don't forget to re-run backend server after updating `HOST` server env value.

@@ -18,16 +18,13 @@ router.post('/check-me', async (req, res, next) => {
   try {
     if (!shop) throw new Error('bad request');
 
-    const user = await User.findOne({
-      shop,
-      password: { $exists: true, $ne: '' },
-    });
+    const user = await User.findOne({ shop });
 
     if (!user) {
       return res.json({ authenticated: false });
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET!);
+    const token = jwt.sign({ id: user._id, shop }, JWT_SECRET!);
 
     return res.json({ authenticated: true, token });
   } catch (error) {
@@ -57,7 +54,7 @@ router.post('/retrive-token', async (req, res, next) => {
       user = await User.create({ shop, password: access_token });
     }
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET!);
+    const token = jwt.sign({ id: user._id, shop }, JWT_SECRET!);
 
     // register webhook for uninstall event
     registerWebhook(

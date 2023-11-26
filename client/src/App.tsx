@@ -1,14 +1,21 @@
-import { Route, Routes } from 'react-router-dom';
+import {} from '@shopify/app-bridge-react';
+import { AppProvider } from '@shopify/polaris';
+import '@shopify/polaris/build/esm/styles.css';
+import enTranslate from '@shopify/polaris/locales/en.json';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Authenticate from './containers/Authenticate';
-import Home from './containers/Home';
+import AppRouter from './AppRouter';
+import ShopifyGuard from './components/ShopifyGuard';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" Component={Home} />
-      <Route path="/authenticate" Component={Authenticate} />
-    </Routes>
+    <BrowserRouter>
+      <AppProvider i18n={enTranslate}>
+        <ShopifyGuard>
+          <AppRouter />
+        </ShopifyGuard>
+      </AppProvider>
+    </BrowserRouter>
   );
 }
 

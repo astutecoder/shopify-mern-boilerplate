@@ -8,7 +8,7 @@ const isValidState = (state: string) => {
   return state === nonce;
 };
 
-const isValidHmac = async () => {
+const isValidHmac = () => {
   const { hmac, ...restParams } = generateQueryObject();
 
   if (hmac === undefined) {
@@ -19,6 +19,13 @@ const isValidHmac = async () => {
   const newHmac = sha256.hmac(SHOPIFY_CLIENT_SECRET, queryString);
 
   return hmac === newHmac;
+};
+
+export const isFromShopify = () => {
+  const { shop } = generateQueryObject();
+  const regEx = /^[a-zA-Z0-9][a-zA-Z0-9\-]*\.myshopify\.com/;
+
+  return regEx.test(shop) && isValidHmac();
 };
 
 export const isValidRequest = () => {

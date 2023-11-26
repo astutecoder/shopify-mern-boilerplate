@@ -1,37 +1,8 @@
 import { useEffect, useState } from 'react';
-import {
-  getAuthToken,
-  getAuthorized,
-  getIsAuthenticated,
-} from '../service/auth';
+import { getAuthToken } from '../service/auth';
 import { TOKEN_KEY } from '../utils/constants/global';
 import { isValidRequest } from '../utils/helpers/shopify-request';
 import { generateQueryObject } from '../utils/helpers/url';
-
-export const useAuth = (shop: string) => {
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [redirect, setRedirect] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const data = await getIsAuthenticated(shop);
-
-      if (data.authenticated) {
-        localStorage.setItem(TOKEN_KEY, data.token);
-        setIsAuthenticated(true);
-        setLoading(false);
-        return;
-      }
-
-      setLoading(false);
-      setRedirect(true);
-      await getAuthorized(shop);
-    })();
-  }, [shop]);
-
-  return { isAuthenticated, loading, redirect };
-};
 
 export const useGetAuthToken = () => {
   const [loading, setLoading] = useState(true);
@@ -48,7 +19,7 @@ export const useGetAuthToken = () => {
         return;
       }
 
-      const token = await getAuthToken(shop, code);
+      const { token } = await getAuthToken(shop, code);
       localStorage.setItem(TOKEN_KEY, token);
       setRedirect(true);
       setLoading(false);
