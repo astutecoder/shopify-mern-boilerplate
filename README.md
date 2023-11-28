@@ -4,22 +4,38 @@ Thank you for choosing this boilerplate! Follow these simple steps to set up the
 
 ### Prerequisites
 
-Before starting, make sure you have the following:
+This repo has a docker-compose.yml file. If you wish to use docker you should have installed `Docker` in your machine. Otherwise you can skip docker and make sure you have the following:
 
 - Node.js installed
 - Shopify Partner account
 
 ### Installation
 
-_Client & Server_
+- Clone this repository to your local machine.
+- #### Using docker:
 
-1. Clone this repository to your local machine.
-2. Create a `.env` file and populate it with keys from the `.env.sample` file.
-3. Set your backend server's domain as server env `HOST` value
+  - Server:
+
+    - Create a tunnel for port `3434`
+    - Rename `.env.sample` to `.env`. Remove _DB_URL_ and _PORT_. Provide the values for other keys.
+
+  - Client:
+    - Create a tunnel for port `5001`
+    - Rename `.env.sample` to `.env`. Remove _VITE_SHOPIFY_ADMIN_URL_. Provide the values for other keys. For _VITE_SERVER_URL_ use server's tunnel url.
+
+- #### Without docker:
+  - Create a `.env` file and populate it with keys from the `.env.sample` file.
+  - Set your backend server's domain as server env `HOST` value
 
 ### Getting Started
 
-1. Run the client and server using the following command:
+1. If you are using **Docker**, then run
+
+   ```
+   docker-compose up --build
+   ```
+
+   otherwise run the client and server using the following command in respective folders:
 
    ```
    yarn run dev
@@ -38,4 +54,4 @@ _Client & Server_
 ### Note:
 
 - Kindly remove shop records after uninstalling the app because it is possible that your webhooks are not working when developing in local environment.
-- Don't forget to re-run backend server after updating `HOST` server env value.
+- If the tunnels are expired/off, re-open them. Update all references. For docker, re-run docker containers.

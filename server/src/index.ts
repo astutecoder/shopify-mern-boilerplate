@@ -22,7 +22,7 @@ mongoose
     app.use(express.json());
 
     app.get('/', (req, res) => {
-      res.json({ a: 1 });
+      res.json({ a: 1, b: 2, c: 4 });
     });
 
     app.use('/auth', authRouter);

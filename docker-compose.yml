@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  client:
+    image: node:18-alpine
+    container_name: oa-client
+    working_dir: /app
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./client:/app
+    env_file:
+      - ./client/.env
+    environment:
+      - VITE_SHOPIFY_ADMIN_URL=https://admin.shopify.com
+    command: [ "sh", "-c", "yarn && yarn run dev" ]
+    depends_on:
+      - server
+
+  server:
+    image: node:18-alpine
+    container_name: oa-server
+    working_dir: /app
+    ports:
+      - "3434:3434"
+    volumes:
+      - ./server:/app
+    env_file:
+      - ./server/.env
+    environment:
+      - DB_URL=mongodb://assignmentmongodb:27017/oa-shopify
+      - PORT=3434
+    command: [ "sh", "-c", "yarn && yarn run dev" ]
+    depends_on:
+      - assignmentmongodb
+
+  assignmentmongodb:
+    image: mongo:latest
+    container_name: oa-db
+    ports:
+      - "27018:27017"
