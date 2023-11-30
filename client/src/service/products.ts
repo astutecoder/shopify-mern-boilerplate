@@ -1,14 +1,10 @@
-import { SERVER_URL, TOKEN_KEY } from '../utils/constants/global';
+import { SERVER_URL } from '../utils/constants/global';
+import { authenticatedFetch } from '../utils/helpers/fetch';
 
 export const getProducts = async () => {
-  const token = localStorage.getItem(TOKEN_KEY);
   const url = `${SERVER_URL}/products`;
-  const data = await fetch(url, {
+  const data = await authenticatedFetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
     body: JSON.stringify({
       query: `query products($first: Int) {
                   products(first: $first) {
