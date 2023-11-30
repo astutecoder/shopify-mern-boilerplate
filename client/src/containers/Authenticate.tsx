@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { Spinner } from '@shopify/polaris';
+import { useContext, useEffect, useState } from 'react';
 import { getAuthToken } from '../service/auth';
-import { NONCE_KEY, TOKEN_KEY } from '../utils/constants/global';
+import { NONCE_KEY } from '../utils/constants/global';
+import { AuthContext } from '../utils/context/AuthContext';
 import { isValidRequest } from '../utils/helpers/shopify-request';
 import { generateAppUrl, generateQueryObject } from '../utils/helpers/url';
-import { Spinner } from '@shopify/polaris';
 
 const Authenticate = () => {
+  const { setToken } = useContext(AuthContext);
+
   const { shop, code } = generateQueryObject();
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -21,10 +24,11 @@ const Authenticate = () => {
 
       const { token } = await getAuthToken(shop, code);
 
-      localStorage.setItem(TOKEN_KEY, token);
+      setToken(token);
       setShouldRedirect(true);
       setLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Spinner />;
