@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn build && node dist/index.js",
+    "start:dev": "yarn && yarn dev",
     "build": "tsc --build",
     "dev": "nodemon --watch \"./**/*.ts\" --exec \"ts-node-dev -r tsconfig-paths/register ./src/index.ts\"",
     "clean": "rm -rf ./dist && rm -rf yarn.lock && rm -rf node_modules && yarn"

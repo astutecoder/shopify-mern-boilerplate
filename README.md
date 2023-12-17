@@ -35,7 +35,7 @@ This repo has a docker-compose.yml file. If you wish to use docker you should ha
    docker-compose up --build
    ```
 
-   otherwise run the client and server using the following command in respective folders:
+   otherwise you can run the following code from root directory:
 
    ```
    yarn run dev

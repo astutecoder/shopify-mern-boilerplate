@@ -1,0 +1,26 @@
+{
+  "name": "order-kanban",
+  "version": "1.0.0",
+  "description": "Thank you for choosing this boilerplate! Follow these simple steps to set up the app for your demo store.",
+  "main": "index.js",
+  "scripts": {
+    "start-dev-server": "cd server && yarn start:dev",
+    "start-dev-client": "cd client && yarn start:dev",
+    "dev": "concurrently --kill-others 'yarn:start-dev-*'",
+    "ext:generate": "shopify app generate extension",
+    "app:dev": "shopify app dev",
+    "app:deploy": "shopify app deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:astutecoder/shopify-react-node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@shopify/app": "^3.52.0",
+    "@shopify/cli": "^3.52.0",
+    "concurrently": "^8.2.2"
+  }
+}
