@@ -38,6 +38,9 @@ This repo has a docker-compose.yml file. If you wish to use docker you should ha
    otherwise you can run the following code from root directory:
 
    ```
+   yarn
+   ```
+   ```
    yarn run dev
    ```
 
