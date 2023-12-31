@@ -9,7 +9,7 @@ import productRouter from './routes/products';
 import webhookRouter from './routes/webhooks';
 import { DB_URL, PORT } from './utils/constants/global';
 import { createServer } from 'http';
-import { Socket } from '../src/services/Socket';
+import { socket } from '../src/services/Socket';
 
 const dbUrl = DB_URL;
 const port = PORT;
@@ -38,7 +38,7 @@ mongoose
       }
     });
 
-    new Socket(server);
+    socket.connect(server);
 
     server.listen(port, () => {
       console.log(`app is listening to port ${port}`);
