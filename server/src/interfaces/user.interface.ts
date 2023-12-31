@@ -6,4 +6,4 @@ export interface IUser {
   uninstalledAt: Date;
 }
 
-export type IUserReqBody = Pick<IUser, 'shop' | 'password'>;
+export type IUserReqBody = Pick<IUser, 'shop' | 'password'> & { _id: string };

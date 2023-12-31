@@ -58,7 +58,7 @@ router.post('/retrive-token', async (req, res, next) => {
 
     // register webhook for uninstall event
     registerWebhook(
-      { shop: user.shop, password: user.password },
+      { shop: user.shop, password: user.password, _id: user._id },
       WEBHOOK_APP_UNINSTALLED.topic,
       WEBHOOK_APP_UNINSTALLED.endpoint
     );
