@@ -22,7 +22,7 @@ export const isValidWebhookRequest = async (
 
     if (!shop) throw new Error('Not a valid store');
 
-    req.user = { shop: shop.shop, password: shop.password };
+    req.user = { shop: shop.shop, password: shop.password, _id: shop._id };
     next();
   } catch (error) {
     console.log('error', error);
