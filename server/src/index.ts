@@ -10,6 +10,7 @@ import webhookRouter from './routes/webhooks';
 import { DB_URL, PORT } from './utils/constants/global';
 import { createServer } from 'http';
 import { socket } from '../src/services/Socket';
+import { isValidWebhookRequest } from './middlewares/webhook.middleware';
 
 const dbUrl = DB_URL;
 const port = PORT;
@@ -30,7 +31,7 @@ mongoose
 
     app.use('/auth', authRouter);
     app.use('/products', productRouter);
-    app.use('/webhooks', webhookRouter);
+    app.use('/webhooks', isValidWebhookRequest, webhookRouter);
 
     app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
       if (error) {
