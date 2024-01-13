@@ -23,6 +23,7 @@ mongoose
     console.log(`db connection established`);
 
     app.use(cors());
+    app.use('/webhooks', isValidWebhookRequest, webhookRouter);
     app.use(express.json());
 
     app.get('/', (req, res) => {
@@ -31,7 +32,6 @@ mongoose
 
     app.use('/auth', authRouter);
     app.use('/products', productRouter);
-    app.use('/webhooks', isValidWebhookRequest, webhookRouter);
 
     app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
       if (error) {

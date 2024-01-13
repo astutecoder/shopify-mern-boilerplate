@@ -1,7 +1,8 @@
 import { createHmac } from 'crypto';
-import { Request, Response, NextFunction } from 'express';
-import { SHOPIFY_CLIENT_SECRET } from '../utils/constants/global';
+import { NextFunction, Request, Response } from 'express';
+import getRawBody from 'raw-body';
 import { User } from '../models';
+import { SHOPIFY_CLIENT_SECRET } from '../utils/constants/global';
 
 export const isValidWebhookRequest = async (
   req: Request,
@@ -9,11 +10,12 @@ export const isValidWebhookRequest = async (
   next: NextFunction
 ) => {
   try {
-    const signature = req.headers['x-shopify-hmac-sha256'];
-    const shopDomain = req.headers['x-shopify-shop-domain'];
+    const signature = req.get('X-Shopify-Hmac-Sha256');
+    const shopDomain = req.get('x-shopify-shop-domain');
+    const data = await getRawBody(req);
 
     const newHmac = createHmac('sha256', SHOPIFY_CLIENT_SECRET!)
-      .update(JSON.stringify(req.body))
+      .update(data)
       .digest('base64');
 
     if (newHmac !== signature) throw new Error('Not a valid request');

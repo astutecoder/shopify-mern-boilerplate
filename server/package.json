@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.1",
     "node-fetch": "2",
+    "raw-body": "^2.5.2",
     "ws": "^8.15.1"
   },
   "devDependencies": {

@@ -7,11 +7,13 @@ const router = Router();
 router.post(WEBHOOK_APP_UNINSTALLED.endpoint, async (req, res) => {
   try {
     if (!req.user) throw new Error('Invalid request');
-    await User.findOneAndDelete({ shop: req.user._id });
+    await User.findByIdAndDelete(req.user._id);
   } catch (error) {
+    console.error(error, error);
     // log failed webhook
   }
-  return res.status(200).send('Webhook recieved successfully');
+  res.statusCode = 200;
+  return res.write('Webhook recieved successfully');
 });
 
 export default router;
